@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PanenKuy — Marketplace Hasil Pertanian</title>
+<style>
+:root{--g:#237a45;--gd:#14532d;--mint:#eaf5ed;--bg:#f7f9f5;--ink:#183326;--muted:#6b7b70;--line:#e4ebe4;--gold:#efa83a;--shadow:0 10px 30px #173d2510}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,Arial,sans-serif;background:var(--bg);color:var(--ink)}
+header{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}.wrap{max-width:1160px;margin:auto;padding:0 22px}
+.nav{min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}.brand{font-size:25px;font-weight:850;color:var(--gd)}.brand span{color:var(--gold)}
+button{border:0;border-radius:12px;padding:12px 16px;background:var(--g);color:white;font-weight:750;cursor:pointer}button:hover{filter:brightness(.95)}button.alt{background:#edf4ef;color:var(--gd)}button.light{background:white;color:var(--gd);border:1px solid var(--line)}
+.hero{padding:52px 0;background:linear-gradient(110deg,#e7f2e7,#f4f7ed 62%,#fff8e9)}.hero-inner{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:center}
+.eyebrow{display:inline-block;background:white;border:1px solid #dce9dc;border-radius:40px;padding:8px 13px;color:var(--gd);font-size:12px;font-weight:800}
+h1{font-size:clamp(35px,5vw,57px);line-height:1.04;letter-spacing:-2px;color:var(--gd);margin:18px 0}h2{color:var(--gd);margin:0 0 10px}h3{margin:9px 0}
+p{line-height:1.6}.hero p{font-size:17px;color:#53685a}.hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+.hero-visual{height:340px;position:relative;border-radius:26px;overflow:hidden;box-shadow:0 22px 50px #25492c25}.hero-visual img{width:100%;height:100%;object-fit:cover;display:block}
+.hero-note{position:absolute;left:16px;bottom:16px;background:#ffffffed;border-radius:14px;padding:12px 15px;max-width:240px}.hero-note b{display:block;color:var(--gd);font-size:14px}.hero-note span{font-size:12px;color:var(--muted)}
+section{padding:32px 0}.section-head{margin-bottom:18px}.section-head p{margin:0;color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:17px}.card{background:white;border:1px solid var(--line);border-radius:18px;padding:17px;box-shadow:var(--shadow)}
+.method-img,.product-photo{height:150px;border-radius:14px;overflow:hidden;margin-bottom:13px;background:#eaf2e8}.method-img img,.product-photo img{width:100%;height:100%;object-fit:cover;object-position:center;display:block}
+.tag{display:inline-block;padding:6px 10px;border-radius:30px;background:var(--mint);color:var(--gd);font-size:11px;font-weight:800}
+.price{font-size:20px;font-weight:850;color:var(--g);margin:9px 0}.muted{color:var(--muted)}.small{font-size:13px}
+.row{display:flex;gap:10px;flex-wrap:wrap}.row>*{flex:1;min-width:150px}
+input,select,textarea{width:100%;padding:12px;border:1px solid #d8e3d9;border-radius:11px;background:white;font:inherit;color:var(--ink)}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0}.info{background:#fff8e9;border:1px solid #f0dfb9;padding:13px 15px;border-radius:12px;color:#74561d}
+.hidden{display:none!important}.dashhead{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:20px}
+.stat{font-size:26px;font-weight:850;color:var(--g)}.modal{position:fixed;inset:0;background:#10201699;display:flex;align-items:center;justify-content:center;padding:16px;z-index:10}
+.modalbox{background:white;border-radius:20px;padding:22px;width:min(560px,100%);max-height:90vh;overflow:auto}.close{float:right;background:#edf4ef;color:var(--gd)}
+footer{background:#153e28;color:#e7f4e9;padding:27px 0;margin-top:32px}footer p{color:#c6d8ca}
+.chat-layout{display:grid;grid-template-columns:290px 1fr;gap:16px;min-height:420px}.chat-list{padding:0;overflow:hidden}.chat-list h3{padding:16px;margin:0;border-bottom:1px solid var(--line)}
+.chat-contact{display:flex;gap:11px;align-items:center;padding:14px 15px;border-bottom:1px solid #edf1ed;cursor:pointer}.chat-contact.active,.chat-contact:hover{background:#f0f7f0}
+.avatar{width:42px;height:42px;border-radius:50%;background:#e3f1e5;color:var(--gd);display:grid;place-items:center;font-weight:850;flex:none}
+.chat-contact b{display:block;font-size:14px}.chat-contact small{color:var(--muted)}
+.chat-window{display:flex;flex-direction:column;min-height:420px;padding:0;overflow:hidden}.chat-top{padding:14px 17px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px}
+.chat-messages{padding:18px;flex:1;overflow:auto;background:#f8faf7;display:flex;flex-direction:column;gap:10px;min-height:250px}
+.bubble{max-width:78%;padding:11px 13px;border-radius:15px;background:white;border:1px solid var(--line);line-height:1.45;font-size:14px}.bubble.me{align-self:flex-end;background:#e6f4e8;border-color:#d7eadb}
+.bubble small{display:block;color:var(--muted);font-size:10px;margin-top:5px}.chat-compose{display:flex;gap:9px;padding:13px;border-top:1px solid var(--line);background:white}.chat-compose input{flex:1;min-width:0}
+@media(max-width:780px){.hero-inner{grid-template-columns:1fr}.hero-visual{height:260px}.grid{grid-template-columns:repeat(2,1fr)}.chat-layout{grid-template-columns:1fr}.chat-list{max-height:220px;overflow:auto}}
+@media(max-width:520px){.wrap{padding:0 14px}.grid{grid-template-columns:1fr}.nav{padding:10px 0}.nav .row{width:100%}.nav button{padding:10px;font-size:12px}.hero{padding:35px 0}.hero-visual{height:220px}.chat-compose{flex-wrap:wrap}.chat-compose button{width:100%}}
+
+.photo-fallback{display:grid;place-items:center;background:linear-gradient(135deg,#e5f1e4,#f8f4e8)}
+.photo-fallback:after{content:attr(data-emoji);font-size:16px;color:#526b58;font-weight:700}
+.qr-preview{flex-direction:column;text-align:center}.mvp-points{grid-template-columns:1fr}}
+
+</style></head>
+<body>
+<header><div class="wrap nav"><div class="brand">🌱 Panen<span>Kuy</span></div><div class="row" style="flex:0;min-width:0"><button class="alt" onclick="home()">Beranda</button><button onclick="buyer()">Dashboard Pembeli</button><button class="alt" onclick="farmer()">Dashboard Petani</button><button class="alt" onclick="openChat()">💬 Chat</button></div></div></header>
+<main id="homePage">
+<div class="hero"><div class="wrap hero-inner"><div><span class="eyebrow">🌱 MARKETPLACE HASIL PERTANIAN</span><h1>Panen lebih dekat,<br>pasar lebih luas.</h1><p>Temukan hasil pertanian berkualitas dan terhubung langsung dengan petani. Cari produk, diskusikan kebutuhan, dan rencanakan pemesanan dengan lebih mudah.</p><div class="hero-actions"><button onclick="buyer()">Jelajahi Produk</button><button class="alt" onclick="farmer()">Dashboard Petani</button><button class="light" onclick="openChat()">💬 Chat</button></div></div><div class="hero-visual"><img src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1200&q=85" alt="Aneka sayuran segar"><div class="hero-note"><b>Terhubung langsung dengan petani</b><span>Tanyakan stok, harga, kualitas, dan jadwal panen.</span></div></div></div></div>
+<section class="wrap"><div class="section-head"><span class="tag">CARA BERTRANSAKSI</span><h2 style="margin-top:8px">Tiga metode penjualan PanenKuy</h2><p>Pilih cara pemesanan yang sesuai dengan kebutuhanmu.</p></div><div class="grid">
+<div class="card"><div class="method-img"><img src="https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=700&q=85" alt="Sayuran segar"></div><h3>Ready Stock</h3><p class="muted">Hasil panen tersedia dan siap dipesan.</p></div>
+<div class="card"><div class="method-img"><img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=700&q=85" alt="Lahan pertanian"></div><h3>Pre-Order Panen</h3><p class="muted">Pesan hasil tanaman yang sedang tumbuh sebelum masa panen.</p></div>
+<div class="card"><div class="method-img"><img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=700&q=85" alt="Area pertanian"></div><h3>Pesanan Tanam</h3><p class="muted">Ajukan kebutuhan, lalu petani menyepakati penanaman sesuai permintaan.</p></div></div>
+<p class="info">Prototype demonstrasi: data, chat, dan pemesanan masih berupa simulasi di browser. Belum terhubung ke database atau transaksi sungguhan.</p></section></main>
+<main id="buyerPage" class="hidden"><section class="wrap"><div class="dashhead"><div><span class="tag">Dashboard Pembeli</span><h2>Katalog Hasil Pertanian</h2><p class="muted">Cari produk dari petani berdasarkan metode penjualan dan lokasi.</p></div><button class="alt" onclick="home()">Kembali</button></div>
+<div class="row"><input id="search" placeholder="Cari nama produk..." oninput="render()"><select id="loc" onchange="render()"><option value="">Semua lokasi</option><option>Lubuk Pakam</option><option>Tanjung Morawa</option><option>Pagar Merbau</option></select></div>
+<div class="filters"><button onclick="setFilter('Semua',this)">Semua</button><button class="alt" onclick="setFilter('Ready Stock',this)">Ready Stock</button><button class="alt" onclick="setFilter('Pre-Order',this)">Pre-Order</button><button class="alt" onclick="setFilter('Pesanan Tanam',this)">Pesanan Tanam</button></div>
+<div id="catalogue" class="grid"></div></section></main>
+<main id="farmerPage" class="hidden"><section class="wrap"><div class="dashhead"><div><span class="tag">Dashboard Petani</span><h2>Kelola Produk dan Penawaran</h2><p class="muted">Tambahkan hasil panen atau penawaran tanam ke katalog pembeli.</p></div><button class="alt" onclick="home()">Kembali</button></div>
+<div class="grid" style="margin-bottom:18px"><div class="card"><div class="muted">Contoh produk terdaftar</div><div class="stat" id="count">15</div></div><div class="card"><div class="muted">Metode penjualan</div><div class="stat">3</div></div><div class="card"><div class="muted">Area layanan contoh</div><div class="stat">3</div></div></div>
+<div class="card"><h3>Tambah Produk / Penawaran</h3><div class="row"><div><label>Nama produk</label><input id="pn" placeholder="Contoh: Tomat"></div><div><label>Harga (Rp/kg)</label><input id="pp" type="number" placeholder="12000"></div></div><br><div class="row"><div><label>Jumlah / keterangan</label><input id="pq" placeholder="Contoh: 100 kg"></div><div><label>Lokasi</label><select id="pl"><option>Lubuk Pakam</option><option>Tanjung Morawa</option><option>Pagar Merbau</option></select></div></div><br><div class="row"><div><label>Metode penjualan</label><select id="pt"><option>Ready Stock</option><option>Pre-Order</option><option>Pesanan Tanam</option></select></div><div><label>Estimasi panen (opsional)</label><input id="ph" placeholder="Contoh: 30 hari lagi"></div></div><br><button onclick="add()">Tambahkan ke Katalog</button></div>
+<h3 style="margin-top:25px">Contoh produk dalam katalog</h3><div id="farmerProducts" class="grid"></div>
+<p class="info">Produk yang ditambahkan di sini hanya tersimpan sementara selama halaman demo berjalan. Pada aplikasi sebenarnya, data akan tersimpan di akun petani dan database PanenKuy.</p></section></main>
+<main id="chatPage" class="hidden"><section class="wrap"><div class="dashhead"><div><span class="tag">PESAN LANGSUNG</span><h2>Chat Pembeli & Petani</h2><p class="muted">Tanyakan stok, kualitas, harga, jumlah, atau jadwal panen langsung kepada petani.</p></div><button class="alt" onclick="home()">Kembali</button></div><div class="chat-layout"><div class="card chat-list"><h3>Daftar Percakapan</h3><div id="chatContacts"></div></div><div class="card chat-window"><div class="chat-top"><div class="avatar" id="chatAvatar">PA</div><div><b id="chatName">Pak Andi</b><div class="small muted" id="chatSub">Petani · Lubuk Pakam</div></div></div><div class="chat-messages" id="chatMessages"></div><div class="chat-compose"><input id="chatInput" placeholder="Tulis pesan..." onkeydown="if(event.key==='Enter')sendChat()"><button onclick="sendChat()">Kirim Pesan</button></div></div></div><p class="info" style="margin-top:15px">Catatan prototype: chat dapat dicoba untuk demonstrasi. Pesan hanya tersimpan sementara pada halaman yang sedang dibuka dan belum terkirim ke pengguna lain.</p></section></main><footer><div class="wrap"><b>🌱 PanenKuy</b><p>Mempertemukan kebutuhan pembeli dengan hasil dan rencana produksi petani.</p><small>Prototype MVP — data dan pemesanan hanya simulasi.</small></div></footer>
+<div id="modal" class="modal hidden" onclick="if(event.target.id==='modal')closeM()"><div class="modalbox"><button class="close" onclick="closeM()">Tutup ✕</button><div id="mc"></div></div></div>
+<script>
+let products=[
+["Cabai Merah","Pak Andi","Lubuk Pakam",35000,"Ready Stock","50 kg","🌶️","Tersedia sekarang"],
+["Tomat","Bu Rina","Tanjung Morawa",12000,"Ready Stock","80 kg","🍅","Tersedia sekarang"],
+["Jagung Pipil","Pak Juna","Pagar Merbau",6500,"Ready Stock","200 kg","🌽","Tersedia sekarang"],
+["Mentimun","Bu Lina","Lubuk Pakam",9000,"Ready Stock","60 kg","🥒","Tersedia sekarang"],
+["Ubi Jalar","Pak Dedi","Tanjung Morawa",7000,"Ready Stock","100 kg","🍠","Tersedia sekarang"],
+["Beras Putih","Bu Sari","Tanjung Morawa",14000,"Pre-Order","Perkiraan 20 hari lagi","🍚","Tanaman sedang tumbuh"],
+["Cabai Rawit","Pak Budi","Pagar Merbau",42000,"Pre-Order","Perkiraan 35 hari lagi","🌶️","Tanaman sedang tumbuh"],
+["Semangka","Bu Wati","Lubuk Pakam",8500,"Pre-Order","Perkiraan 25 hari lagi","🍉","Tanaman sedang tumbuh"],
+["Kacang Panjang","Pak Rudi","Pagar Merbau",11000,"Pre-Order","Perkiraan 18 hari lagi","🫘","Tanaman sedang tumbuh"],
+["Terong","Bu Maya","Tanjung Morawa",10000,"Pre-Order","Perkiraan 22 hari lagi","🍆","Tanaman sedang tumbuh"],
+["Jagung Manis","Pak Budi","Pagar Merbau",6000,"Pesanan Tanam","Sesuai kesepakatan","🌽","Penanaman setelah pesanan disepakati"],
+["Cabai Merah","Pak Andi","Lubuk Pakam",33000,"Pesanan Tanam","Sesuai kesepakatan","🌶️","Jumlah dan jadwal dibahas dengan petani"],
+["Timun Suri","Bu Wati","Tanjung Morawa",7500,"Pesanan Tanam","Sesuai kesepakatan","🍈","Penanaman berdasarkan permintaan"],
+["Bawang Merah","Pak Juna","Pagar Merbau",28000,"Pesanan Tanam","Sesuai kesepakatan","🧅","Jumlah dan kualitas disepakati lebih dahulu"],
+["Kacang Tanah","Bu Lina","Lubuk Pakam",16000,"Pesanan Tanam","Sesuai kesepakatan","🥜","Penanaman berdasarkan permintaan"]
+].map(a=>({name:a[0],farmer:a[1],loc:a[2],price:a[3],type:a[4],qty:a[5],emoji:a[6],detail:a[7]}));
+let filter="Semua";
+function show(id){["homePage","buyerPage","farmerPage","chatPage"].forEach(x=>document.getElementById(x).classList.toggle("hidden",x!==id));window.scrollTo(0,0)}
+function home(){show("homePage")}function buyer(){show("buyerPage");render()}function farmer(){show("farmerPage");farmerList()}
+function setFilter(f,b){filter=f;document.querySelectorAll(".filters button").forEach(x=>{x.className=x.textContent===f?"":"alt"});render()}
+function photoFor(p){
+  const n=p.name.toLowerCase();
+  if(n.includes("kacang tanah")) return "https://images.unsplash.com/photo-1567892737950-30c4db37cd89?auto=format&fit=crop&w=900&q=85";
+  if(n.includes("kacang panjang")) return "https://images.unsplash.com/photo-1567375698348-5d9d5ae99de0?auto=format&fit=crop&w=900&q=85";
+  if(n.includes("cabai")) return "https://images.unsplash.com/photo-1588252303782-cb80119bedc5?auto=format&fit=crop&w=900&q=85";
+  if(n.includes("tomat")) return "https://images.unsplash.com/photo-1546094096-0df4bcaaa337?auto=format&fit=crop&w=900&q=85";
+  if(n.includes("jagung")) return "https://images.unsplash.com/photo-1601593768797-3c8f6b4c2c6b?auto=format&fit=crop&w=900&q=85";
+  if(n.includes("mentimun")||n.includes("timun")) return "https://images.unsplash.com/photo-1604977042946-1eecc30f269e?auto=format&fit=crop&w=900&q=85";
+  if(n.includes("ubi")) return "https://images.unsplash.com/photo-1518977676601-b53f82aba655?auto=format&fit=crop&w=900&q=85";
+  if(n.includes("beras")) return "https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=900&q=85";
+  if(n.includes("semangka")) return "https://images.unsplash.com/photo-1563114773-84221bd62daa?auto=format&fit=crop&w=900&q=85";
+  if(n.includes("terong")) return "https://images.unsplash.com/photo-1653520779678-7d5cfead8c1d?auto=format&fit=crop&w=900&q=85";
+  if(n.includes("bawang")) return "https://images.unsplash.com/photo-1508747703725-719777637510?auto=format&fit=crop&w=900&q=85";
+  return "https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=900&q=85";
+}
+function card(p){return `<article class="card"><div class="product-photo"><img src="${photoFor(p)}" alt="${p.name}" loading="lazy" onerror="this.style.display='none';this.parentElement.classList.add('photo-fallback');this.parentElement.dataset.emoji='Foto belum tersedia'"></div><span class="tag">${p.type}</span><h3>${p.name}</h3><p class="muted small">${p.farmer} · ${p.loc}</p><div class="price">Rp${p.price.toLocaleString("id-ID")}/kg</div><p class="muted small">${p.qty}</p><div class="row"><button onclick="detail(${products.indexOf(p)})">Lihat Detail</button><button class="alt" onclick="chatWith('${p.farmer}','${p.name}')">💬 Chat Petani</button></div></article>`}
+function render(){let q=(document.getElementById("search")?.value||"").toLowerCase(),l=document.getElementById("loc")?.value||"";let arr=products.filter(p=>(filter==="Semua"||p.type===filter)&&p.name.toLowerCase().includes(q)&&(!l||p.loc===l));document.getElementById("catalogue").innerHTML=arr.length?arr.map(card).join(""):"<p>Produk tidak ditemukan.</p>"}
+function farmerList(){document.getElementById("count").textContent=products.length;document.getElementById("farmerProducts").innerHTML=products.map(p=>`<div class="card"><b>${p.name}</b><p class="muted">${p.type} · ${p.loc}</p><div class="price">Rp${p.price.toLocaleString("id-ID")}/kg</div><small>${p.qty}</small></div>`).join("")}
+function detail(i){let p=products[i];document.getElementById("mc").innerHTML=`<div class="emoji">${p.emoji}</div><span class="tag">${p.type}</span><h2>${p.name}</h2><p>${p.detail}</p><p><b>Petani:</b> ${p.farmer}<br><b>Lokasi:</b> ${p.loc}<br><b>Ketersediaan:</b> ${p.qty}</p><div class="price">Rp${p.price.toLocaleString("id-ID")}/kg</div><label>Jumlah (kg)</label><input id="oq" type="number" min="1" value="1"><br><br><div class="info">${p.type==="Ready Stock"?"Simulasi pembayaran penuh untuk Ready Stock.":"Simulasi DP 50% setelah kesepakatan pesanan."}</div><br><button onclick="order('${p.name.replace(/'/g,"")}')">Simulasikan Pesanan</button>`;document.getElementById("modal").classList.remove("hidden")}
+function order(n){let q=document.getElementById("oq").value;document.getElementById("mc").innerHTML=`<h2>Simulasi pesanan berhasil dibuat</h2><p>Produk: <b>${n}</b><br>Jumlah: <b>${q} kg</b></p><p class="info">Ini hanya demonstrasi. Belum ada pembayaran atau pesanan sungguhan.</p><button onclick="closeM()">Selesai</button>`}
+function closeM(){document.getElementById("modal").classList.add("hidden")}
+function add(){let n=document.getElementById("pn").value.trim(),p=Number(document.getElementById("pp").value),q=document.getElementById("pq").value.trim();if(!n||!p||!q){alert("Lengkapi nama produk, harga, dan jumlah.");return}products.unshift({name:n,farmer:"Petani Demo",loc:document.getElementById("pl").value,price:p,type:document.getElementById("pt").value,qty:q,emoji:"🥬",detail:document.getElementById("ph").value||"Detail penawaran dapat disepakati dengan petani."});["pn","pp","pq","ph"].forEach(x=>document.getElementById(x).value="");farmerList();alert("Produk ditambahkan ke katalog demo.")}
+
+let conversations=[
+{name:"Pak Andi",loc:"Lubuk Pakam",product:"Cabai Merah",messages:[{from:"them",text:"Halo, cabai merah tersedia 50 kg. Silakan kalau ingin bertanya.",time:"09.15"}]},
+{name:"Bu Rina",loc:"Tanjung Morawa",product:"Tomat",messages:[{from:"them",text:"Selamat datang. Tomat tersedia dan jumlah pesanan bisa didiskusikan.",time:"08.45"}]},
+{name:"Pak Juna",loc:"Pagar Merbau",product:"Jagung Pipil",messages:[{from:"them",text:"Untuk jagung pipil, stok dan jadwal pengambilan bisa kita bicarakan.",time:"Kemarin"}]}
+];
+let activeChat=0;
+function openChat(){show("chatPage");drawContacts();drawChat()}
+function chatWith(name,product){let idx=conversations.findIndex(c=>c.name===name);if(idx<0){conversations.unshift({name:name,loc:"Petani PanenKuy",product:product,messages:[{from:"them",text:"Halo! Ada yang ingin ditanyakan mengenai "+product+"?",time:"Baru saja"}]});idx=0}activeChat=idx;openChat()}
+function drawContacts(){document.getElementById("chatContacts").innerHTML=conversations.map((c,i)=>`<div class="chat-contact ${i===activeChat?'active':''}" onclick="activeChat=${i};drawContacts();drawChat()"><div class="avatar">${c.name.split(' ').map(x=>x[0]).slice(0,2).join('')}</div><div><b>${c.name}</b><small>${c.product} · ${c.loc}</small></div></div>`).join("")}
+function drawChat(){let c=conversations[activeChat];if(!c)return;document.getElementById("chatName").textContent=c.name;document.getElementById("chatSub").textContent="Petani · "+c.loc+" · "+c.product;document.getElementById("chatAvatar").textContent=c.name.split(' ').map(x=>x[0]).slice(0,2).join('');document.getElementById("chatMessages").innerHTML=c.messages.map(m=>`<div class="bubble ${m.from==='me'?'me':''}">${m.text}<small>${m.time}</small></div>`).join("");let box=document.getElementById("chatMessages");box.scrollTop=box.scrollHeight}
+function sendChat(){let input=document.getElementById("chatInput"),msg=input.value.trim();if(!msg)return;let c=conversations[activeChat];c.messages.push({from:"me",text:escapeChat(msg),time:new Date().toLocaleTimeString("id-ID",{hour:"2-digit",minute:"2-digit"})});input.value="";drawChat()}
+function escapeChat(s){return s.replace(/[&<>"']/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]))}
+
+
+
+render();farmerList();
+</script></body></html>
